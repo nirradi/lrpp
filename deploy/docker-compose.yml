@@ -1,0 +1,24 @@
+version: "3"
+services:
+  client:
+    build:
+      context: ../client
+    volumes:
+      - ../client:/lrpp/client
+      - /lrpp/client/node_modules
+    ports:
+      - 3000:3000
+
+  server:
+    build:
+      context: ../server
+    volumes:
+      - ../server/:/lrpp/server
+    ports: 
+      - 8000:8000
+    
+  db:
+    image: postgres:13.4
+    volumes:
+      - ./dbvolume:/var/lib/postgresql/data:Z
+    env_file: postgres.env
